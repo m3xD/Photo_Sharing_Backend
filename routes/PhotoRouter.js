@@ -74,4 +74,5 @@ router.post('/commentsOfPhoto/:photo_id', auth, async (req, res) => {
 
 })
 
+
 module.exports = router;
