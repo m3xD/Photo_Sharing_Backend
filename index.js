@@ -15,7 +15,7 @@ dbConnect();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '')
+      cb(null, '/Users/khanh/WebstormProjects/Photo_Sharing_2/src/images')
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname)

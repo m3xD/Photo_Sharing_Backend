@@ -5,8 +5,6 @@ const router = express.Router();
 const auth = require('../middleware/middle')
 const {response} = require("express");
 
-router.post("/", async (request, response) => {
-});
 
 router.get("/photosOfUser/:id", auth, async (request, response) => {
     try {
@@ -51,8 +49,8 @@ router.get("/photosOfUser/:id", auth, async (request, response) => {
 });
 
 router.post('/commentsOfPhoto/:photo_id', auth, async (req, res) => {
-
-    const photo = await Photo.findOne({_id: req.params.photo_id}).then(photo => {
+    try {
+        const photo = await Photo.findOne({_id: req.params.photo_id});
         if (!photo) {
             res.status(404).send({error: 'Photo not found'});
         } else {
@@ -66,11 +64,13 @@ router.post('/commentsOfPhoto/:photo_id', auth, async (req, res) => {
             else photo.comments.push(cmt);
             console.log(photo.comments);
             photo.save();
-            response.status(200).send();
+            res.status(200).send();
         }
-    }).catch(error => {
-        res.status(400).send({error: error});
-    });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({error});
+    }
+
 
 })
 
